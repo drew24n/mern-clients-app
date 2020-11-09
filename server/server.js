@@ -23,6 +23,4 @@ app.listen(PORT, () => console.log(`server is running on port ${PORT}`))
 
 module.exports = app
 
-const {get, post} = require('./api/clients')
-get()
-post()
+require('./api/clients')
