@@ -21,4 +21,4 @@ app.use(cors({credentials: true, origin: ['https://clients-list.netlify.app', 'h
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`server is running on port ${PORT}`))
 
-export {app}
+// export {app}
