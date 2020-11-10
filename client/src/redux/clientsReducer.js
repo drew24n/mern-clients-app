@@ -55,6 +55,8 @@ export const clientsReducer = (state = initialState, action) => {
                 ...state, clients: state.clients.filter(client => {
                     if (client._id !== action.id) {
                         return client
+                    } else {
+                        return undefined
                     }
                 })
             }
@@ -86,7 +88,11 @@ export const getClients = () => async (dispatch) => {
             dispatch(setClients(data))
         }
     } catch (error) {
-        notificationError(error)
+        if (error.response) {
+            notificationError(error.response.data.error)
+        } else {
+            notificationError(error)
+        }
     } finally {
         dispatch(setClientsFetching(false))
     }
@@ -102,7 +108,11 @@ export const addNewClient = ({name, age}) => async (dispatch) => {
         }
         return {success}
     } catch (error) {
-        notificationError(error)
+        if (error.response) {
+            notificationError(error.response.data.error)
+        } else {
+            notificationError(error)
+        }
     } finally {
         dispatch(setIsAddingInProcess(false))
     }
@@ -117,7 +127,11 @@ export const updateClient = (id, {name, age}) => async (dispatch) => {
             notificationSuccess(`${name} has been updated!`)
         }
     } catch (error) {
-        notificationError(error)
+        if (error.response) {
+            notificationError(error.response.data.error)
+        } else {
+            notificationError(error)
+        }
     } finally {
         dispatch(setIsUpdatingInProcess(false))
     }
@@ -128,11 +142,15 @@ export const deleteClient = (id) => async (dispatch) => {
         dispatch(setIsDeletingInProcess(id, true))
         const {success} = await clientsApi.delete(id)
         if (success) {
-            dispatch(deleteClient(id))
+            dispatch(deleteClientAction(id))
             notificationSuccess('Client has been deleted!')
         }
     } catch (error) {
-        notificationError(error)
+        if (error.response) {
+            notificationError(error.response.data.error)
+        } else {
+            notificationError(error)
+        }
     } finally {
         dispatch(setIsDeletingInProcess(id, false))
     }

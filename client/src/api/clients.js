@@ -15,9 +15,9 @@ export const clientsApi = {
         return instance.get('/api/clients').then(res => res.data)
     },
     update(id, {name, age}) {
-        return instance.put(`/api/clients?${id}`, {name, age}).then(res => res.data)
+        return instance.put(`/api/clients?id=${id}`, {name, age}).then(res => res.data)
     },
     delete(id) {
-        return instance.delete(`/api/clients?${id}`).then(res => res.data)
+        return instance.delete(`/api/clients?id=${id}`).then(res => res.data)
     }
 }

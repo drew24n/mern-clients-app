@@ -6,20 +6,33 @@
     margin-bottom: 30px;
   }
 
-  .table {
+  .clientsHeader {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
+  }
+
+  .clientItem {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #C0C0C0;
+    margin: 10px auto;
+    height: 50px;
+
     p {
-      margin: 5px 0;
+      margin: 10px;
+
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
-    div {
-      display: flex;
-      justify-content: space-around;
-      align-content: center;
-    }
-
-    .clientItem {
-      border: 1px solid #C0C0C0;
-      margin: 10px auto;
+    button {
+      width: fit-content;
+      margin: auto;
     }
   }
 }
