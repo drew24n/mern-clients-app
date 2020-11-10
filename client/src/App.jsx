@@ -5,6 +5,7 @@ import NewClient from "./components/NewClient/NewClient";
 import ClientsList from "./components/ClientsList/ClientsList";
 import {notificationError} from "./utils/notifications";
 import {getClients} from "./redux/clientsReducer";
+import EditClient from "./components/EditClient/EditClient";
 
 export default function App() {
     const state = useSelector(state => state)
@@ -22,6 +23,7 @@ export default function App() {
         <main className={styles.container}>
             <NewClient state={state} dispatch={dispatch}/>
             <ClientsList state={state} dispatch={dispatch}/>
+            <EditClient state={state} dispatch={dispatch}/>
         </main>
     )
 }

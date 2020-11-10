@@ -9,13 +9,18 @@ const UPDATE_CLIENT = "UPDATE_CLIENT"
 const IS_UPDATING_IN_PROCESS = "IS_UPDATING_IN_PROCESS"
 const DELETE_CLIENT = "DELETE_CLIENT"
 const IS_DELETING_IN_PROCESS = "IS_DELETING_IN_PROCESS"
+const SET_EDIT_MODE = "SET_EDIT_MODE"
 
 const initialState = {
     clients: [],
     isFetching: false,
     isAddingInProcess: false,
     isUpdatingInProcess: false,
-    isDeletingInProcess: []
+    isDeletingInProcess: [],
+    edit: {
+        isEditMode: false,
+        client: {}
+    }
 }
 
 export const clientsReducer = (state = initialState, action) => {
@@ -38,7 +43,7 @@ export const clientsReducer = (state = initialState, action) => {
             }
         case UPDATE_CLIENT:
             return {
-                ...state, notes: state.clients.map(client => {
+                ...state, clients: state.clients.map(client => {
                     if (client._id === action.client._id) {
                         return action.client
                     } else {
@@ -66,6 +71,13 @@ export const clientsReducer = (state = initialState, action) => {
                     ? [...state.isDeletingInProcess, action.id]
                     : state.isDeletingInProcess.filter(id => id !== action.id)
             }
+        case SET_EDIT_MODE:
+            return {
+                ...state, edit: {
+                    isEditMode: action.isEditMode,
+                    client: {...action.client}
+                }
+            }
         default:
             return state
     }
@@ -79,6 +91,7 @@ const updateClientAction = (client) => ({type: UPDATE_CLIENT, client})
 const setIsUpdatingInProcess = (isUpdatingInProcess) => ({type: IS_UPDATING_IN_PROCESS, isUpdatingInProcess})
 const deleteClientAction = (id) => ({type: DELETE_CLIENT, id})
 const setIsDeletingInProcess = (id, isDeletingInProcess) => ({type: IS_DELETING_IN_PROCESS, id, isDeletingInProcess})
+export const setEditMode = (isEditMode, client) => ({type: SET_EDIT_MODE, isEditMode, client})
 
 export const getClients = () => async (dispatch) => {
     try {
@@ -126,6 +139,7 @@ export const updateClient = (id, {name, age}) => async (dispatch) => {
             dispatch(updateClientAction(data))
             notificationSuccess(`${name} has been updated!`)
         }
+        return success
     } catch (error) {
         if (error.response) {
             notificationError(error.response.data.error)
