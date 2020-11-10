@@ -9,15 +9,15 @@ const instance = axios.create({
 
 export const clientsApi = {
     createNew({name, age}) {
-        return instance.post('/api/clients', {name, age})
+        return instance.post('/api/clients', {name, age}).then(res => res.data)
     },
     fetchAll() {
-        return instance.get('/api/clients')
+        return instance.get('/api/clients').then(res => res.data)
     },
     update(id, {name, age}) {
-        return instance.put(`/api/clients?${id}`, {name, age})
+        return instance.put(`/api/clients?${id}`, {name, age}).then(res => res.data)
     },
     delete(id) {
-        return instance.delete(`/api/clients?${id}`)
+        return instance.delete(`/api/clients?${id}`).then(res => res.data)
     }
 }
