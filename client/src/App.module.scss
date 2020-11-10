@@ -1,6 +1,8 @@
 .container {
   display: grid;
-  grid-template-rows: 200px 1fr;
+  grid-template-rows: auto 1fr;
   min-height: 100vh;
   min-width: 360px;
+  max-width: 1200px;
+  margin: auto;
 }

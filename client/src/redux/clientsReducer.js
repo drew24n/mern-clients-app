@@ -14,7 +14,7 @@ const initialState = {
     clients: [],
     isFetching: false,
     isAddingInProcess: false,
-    isUpdatingInProcess: [],
+    isUpdatingInProcess: false,
     isDeletingInProcess: []
 }
 
@@ -49,8 +49,6 @@ export const clientsReducer = (state = initialState, action) => {
         case IS_UPDATING_IN_PROCESS:
             return {
                 ...state, isUpdatingInProcess: action.isUpdatingInProcess
-                    ? [...state.isUpdatingInProcess, action.id]
-                    : state.isUpdatingInProcess.filter(id => id !== action.id)
             }
         case DELETE_CLIENT:
             return {
@@ -76,7 +74,7 @@ const setClientsFetching = (isFetching) => ({type: SET_CLIENTS_FETCHING, isFetch
 const addNewClientAction = (newClient) => ({type: ADD_NEW_CLIENT, newClient})
 const setIsAddingInProcess = (isAddingInProcess) => ({type: IS_ADDING_IN_PROCESS, isAddingInProcess})
 const updateClientAction = (client) => ({type: UPDATE_CLIENT, client})
-const setIsUpdatingInProcess = (id, isUpdatingInProcess) => ({type: IS_UPDATING_IN_PROCESS, id, isUpdatingInProcess})
+const setIsUpdatingInProcess = (isUpdatingInProcess) => ({type: IS_UPDATING_IN_PROCESS, isUpdatingInProcess})
 const deleteClientAction = (id) => ({type: DELETE_CLIENT, id})
 const setIsDeletingInProcess = (id, isDeletingInProcess) => ({type: IS_DELETING_IN_PROCESS, id, isDeletingInProcess})
 
@@ -102,6 +100,7 @@ export const addNewClient = ({name, age}) => async (dispatch) => {
             dispatch(addNewClientAction(data))
             notificationSuccess(`${name} has been added!`)
         }
+        return {success}
     } catch (error) {
         notificationError(error)
     } finally {

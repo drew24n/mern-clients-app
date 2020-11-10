@@ -1,2 +1,25 @@
 .container {
+  padding: 20px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .table {
+    p {
+      margin: 5px 0;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+    }
+
+    .clientItem {
+      border: 1px solid #C0C0C0;
+      margin: 10px auto;
+    }
+  }
 }
